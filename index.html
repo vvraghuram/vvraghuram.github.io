@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Veeravalli Venkata Raghu Ram | EEE & Full Stack Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#0a0c10;--bg2:#0f1318;--bg3:#141920;--card:#161d26;--border:#1e2a38;--accent:#00d4ff;--accent2:#f5a623;--accent3:#39ff14;--text:#e8edf5;--muted:#6a7d94;--heading:#fff;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Syne',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;}
+body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,212,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,.025) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0;}
+
+/* SIDEBAR */
+.sidebar{position:fixed;left:0;top:0;width:290px;height:100vh;background:var(--bg2);border-right:1px solid var(--border);overflow-y:auto;z-index:100;display:flex;flex-direction:column;align-items:center;padding:32px 20px;transition:transform .4s ease;}
+.sidebar::-webkit-scrollbar{width:3px;}
+.sidebar::-webkit-scrollbar-thumb{background:var(--border);}
+
+.avatar-wrap{position:relative;width:120px;height:120px;margin-bottom:16px;flex-shrink:0;}
+.avatar-wrap::before{content:'';position:absolute;inset:-3px;border-radius:50%;background:conic-gradient(var(--accent),var(--accent2),var(--accent3),var(--accent));animation:spin 4s linear infinite;z-index:0;}
+.avatar-wrap::after{content:'';position:absolute;inset:3px;border-radius:50%;background:var(--bg2);z-index:1;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.avatar{position:relative;width:100%;height:100%;border-radius:50%;object-fit:cover;object-position:center top;z-index:2;padding:5px;}
+
+.sidebar-name{font-size:1.15rem;font-weight:800;color:var(--heading);text-align:center;line-height:1.2;margin-bottom:6px;}
+.sidebar-role{font-family:'Space Mono',monospace;font-size:.64rem;color:var(--accent);text-align:center;letter-spacing:.08em;text-transform:uppercase;margin-bottom:20px;padding:5px 10px;border:1px solid rgba(0,212,255,.3);border-radius:4px;background:rgba(0,212,255,.05);}
+
+.contacts{width:100%;display:flex;flex-direction:column;gap:7px;margin-bottom:20px;}
+.contact-item{display:flex;align-items:center;gap:9px;padding:8px 11px;background:var(--card);border:1px solid var(--border);border-radius:8px;text-decoration:none;color:var(--text);font-size:.72rem;transition:all .2s;}
+.contact-item:hover{border-color:var(--accent);color:var(--accent);transform:translateX(3px);}
+.cicon{width:24px;height:24px;background:rgba(0,212,255,.1);border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.8rem;}
+.clabel{font-size:.58rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;}
+.cval{font-size:.72rem;}
+
+.nav-links{width:100%;display:flex;flex-direction:column;gap:3px;}
+.nav-link{display:flex;align-items:center;gap:9px;padding:9px 11px;border-radius:7px;color:var(--muted);font-size:.82rem;font-weight:600;cursor:pointer;background:transparent;border:none;width:100%;text-align:left;transition:all .2s;}
+.nav-link:hover,.nav-link.active{background:rgba(0,212,255,.08);color:var(--accent);}
+.dot{width:5px;height:5px;border-radius:50%;background:var(--border);transition:all .2s;flex-shrink:0;}
+.nav-link:hover .dot,.nav-link.active .dot{background:var(--accent);box-shadow:0 0 8px var(--accent);}
+
+/* MAIN */
+.main{margin-left:290px;min-height:100vh;padding:50px 52px;position:relative;z-index:1;}
+.section{display:none;animation:fadeUp .4s ease;}
+.section.active{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+
+.section-title{font-size:1.9rem;font-weight:800;color:var(--heading);margin-bottom:5px;}
+.section-title span{color:var(--accent);}
+.title-line{height:2px;width:50px;background:linear-gradient(90deg,var(--accent),transparent);margin-bottom:32px;}
+
+/* ABOUT */
+.stat-row{display:flex;gap:11px;flex-wrap:wrap;margin-bottom:32px;}
+.stat-chip{display:flex;flex-direction:column;padding:11px 16px;background:var(--card);border:1px solid var(--border);border-radius:9px;min-width:95px;transition:all .2s;}
+.stat-chip:hover{border-color:var(--accent);}
+.stat-num{font-family:'Space Mono',monospace;font-size:1.3rem;font-weight:700;color:var(--accent);}
+.stat-label{font-size:.64rem;color:var(--muted);}
+
+.about-bio{font-size:.97rem;line-height:1.9;color:var(--text);max-width:680px;margin-bottom:32px;}
+.about-bio strong{color:var(--accent);font-weight:700;}
+
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:13px;margin-bottom:38px;}
+.skill-card{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:16px;transition:all .25s;position:relative;overflow:hidden;}
+.skill-card::before{content:'';position:absolute;top:0;left:0;height:2px;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .4s ease;}
+.skill-card:hover::before{width:100%;}
+.skill-card:hover{border-color:rgba(0,212,255,.3);transform:translateY(-3px);}
+.skill-icon{font-size:1.6rem;margin-bottom:9px;}
+.skill-title{font-size:.88rem;font-weight:700;color:var(--heading);margin-bottom:4px;}
+.skill-desc{font-size:.75rem;color:var(--muted);line-height:1.5;}
+
+.section-sub{font-family:'Space Mono',monospace;font-size:.68rem;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:9px;}
+.section-sub::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent);}
+
+.hobbies-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px;}
+.hobby-tag{display:flex;align-items:center;gap:6px;padding:6px 13px;background:var(--card);border:1px solid var(--border);border-radius:100px;font-size:.78rem;font-weight:600;color:var(--text);transition:all .2s;}
+.hobby-tag:hover{border-color:var(--accent2);color:var(--accent2);}
+
+/* RESUME */
+.resume-grid{display:grid;grid-template-columns:1fr 1fr;gap:36px;}
+.resume-col-title{font-family:'Space Mono',monospace;font-size:.68rem;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:9px;}
+.resume-col-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent);}
+
+.timeline{display:flex;flex-direction:column;}
+.tl-item{position:relative;padding-left:20px;padding-bottom:22px;border-left:1px solid var(--border);}
+.tl-item:last-child{border-color:transparent;padding-bottom:0;}
+.tl-item::before{content:'';position:absolute;left:-5px;top:4px;width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 9px var(--accent);}
+.tl-year{font-family:'Space Mono',monospace;font-size:.63rem;color:var(--accent2);margin-bottom:2px;}
+.tl-title{font-size:.88rem;font-weight:700;color:var(--heading);margin-bottom:2px;}
+.tl-sub{font-size:.74rem;color:var(--muted);margin-bottom:6px;}
+.tl-desc{font-size:.74rem;color:var(--text);line-height:1.6;opacity:.88;}
+.tl-badge{display:inline-block;font-family:'Space Mono',monospace;font-size:.58rem;padding:2px 7px;background:rgba(0,212,255,.1);border:1px solid rgba(0,212,255,.25);border-radius:4px;color:var(--accent);margin-top:5px;}
+
+.skills-full{grid-column:1/-1;display:flex;flex-direction:column;gap:11px;margin-top:6px;}
+.skill-row{display:flex;gap:12px;align-items:flex-start;}
+.skill-row-label{font-family:'Space Mono',monospace;font-size:.65rem;color:var(--accent2);min-width:145px;padding-top:3px;}
+.skill-tags{display:flex;flex-wrap:wrap;gap:5px;}
+.stag{font-size:.7rem;padding:3px 9px;background:var(--card);border:1px solid var(--border);border-radius:4px;color:var(--text);transition:all .2s;}
+.stag:hover{border-color:var(--accent);color:var(--accent);}
+
+/* PROJECTS */
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:17px;}
+.project-card{background:var(--card);border:1px solid var(--border);border-radius:13px;overflow:hidden;transition:all .3s;}
+.project-card:hover{border-color:rgba(0,212,255,.4);transform:translateY(-5px);box-shadow:0 18px 38px rgba(0,0,0,.5);}
+.project-emoji{width:100%;height:110px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:2.8rem;border-bottom:1px solid var(--border);}
+.project-body{padding:16px;}
+.project-tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px;}
+.ptag{font-family:'Space Mono',monospace;font-size:.57rem;padding:2px 6px;background:rgba(0,212,255,.08);border:1px solid rgba(0,212,255,.2);border-radius:3px;color:var(--accent);}
+.project-name{font-size:.93rem;font-weight:700;color:var(--heading);margin-bottom:6px;}
+.project-desc{font-size:.76rem;color:var(--muted);line-height:1.6;margin-bottom:12px;}
+.project-link{display:inline-flex;align-items:center;gap:5px;font-size:.74rem;font-weight:700;color:var(--accent);text-decoration:none;}
+.project-link:hover{text-decoration:underline;}
+
+/* CERTS + ACHIEVEMENTS */
+.cert-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px;margin-bottom:32px;}
+.cert-item{display:flex;align-items:center;gap:11px;padding:12px 14px;background:var(--card);border:1px solid var(--border);border-radius:9px;transition:all .2s;}
+.cert-item:hover{border-color:var(--accent2);transform:translateX(3px);}
+.cert-num{font-family:'Space Mono',monospace;font-size:.63rem;color:var(--accent2);min-width:18px;font-weight:700;}
+.cert-text{font-size:.78rem;color:var(--text);font-weight:600;}
+.cert-by{font-size:.66rem;color:var(--muted);}
+
+.ach-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-bottom:32px;}
+.ach-card{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:15px;transition:all .25s;}
+.ach-card:hover{border-color:rgba(57,255,20,.3);transform:scale(1.02);}
+.ach-icon{font-size:1.4rem;margin-bottom:8px;}
+.ach-title{font-size:.85rem;font-weight:700;color:var(--heading);margin-bottom:3px;}
+.ach-sub{font-size:.72rem;color:var(--muted);}
+
+/* CONTACT */
+.contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:start;}
+.contact-form{display:flex;flex-direction:column;gap:14px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.form-group{display:flex;flex-direction:column;gap:6px;}
+.form-group label{font-family:'Space Mono',monospace;font-size:.62rem;color:var(--accent);letter-spacing:.06em;text-transform:uppercase;}
+.form-group input,.form-group textarea{background:var(--card);border:1px solid var(--border);border-radius:7px;padding:10px 13px;color:var(--text);font-family:'Syne',sans-serif;font-size:.84rem;outline:none;transition:border-color .2s;resize:vertical;}
+.form-group input:focus,.form-group textarea:focus{border-color:var(--accent);}
+.form-group textarea{min-height:105px;}
+.btn-send{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;background:var(--accent);color:#000;font-family:'Space Mono',monospace;font-size:.75rem;font-weight:700;border:none;border-radius:7px;cursor:pointer;letter-spacing:.05em;text-transform:uppercase;transition:all .2s;align-self:flex-start;}
+.btn-send:hover{background:#fff;transform:translateY(-2px);box-shadow:0 8px 22px rgba(0,212,255,.4);}
+
+.contact-info{display:flex;flex-direction:column;gap:12px;}
+.ci-item{display:flex;align-items:center;gap:13px;padding:13px 14px;background:var(--card);border:1px solid var(--border);border-radius:9px;text-decoration:none;color:var(--text);transition:all .2s;}
+.ci-item:hover{border-color:var(--accent);color:var(--accent);transform:translateX(4px);}
+.ci-icon{width:34px;height:34px;background:rgba(0,212,255,.1);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+.ci-label{font-size:.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;}
+.ci-value{font-size:.8rem;color:var(--text);font-weight:600;}
+
+.menu-toggle{display:none;position:fixed;top:13px;right:13px;z-index:200;background:var(--card);border:1px solid var(--border);border-radius:7px;padding:8px;cursor:pointer;font-size:1.1rem;color:var(--text);}
+
+@media(max-width:880px){
+  .sidebar{transform:translateX(-100%);}
+  .sidebar.open{transform:translateX(0);}
+  .main{margin-left:0;padding:52px 16px 36px;}
+  .menu-toggle{display:block;}
+  .resume-grid,.contact-wrap{grid-template-columns:1fr;}
+  .form-row{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<button class="menu-toggle" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+
+<aside class="sidebar" id="sidebar">
+  <div class="avatar-wrap">
+    <img class="avatar" src="https://avatars.githubusercontent.com/vvraghuram" alt="Raghu Ram"
+         onerror="this.src='https://ui-avatars.com/api/?name=Veeravalli+Venkata+Raghu+Ram&background=00d4ff&color=0a0c10&size=200&bold=true'"/>
+  </div>
+  <div class="sidebar-name">Veeravalli Venkata Raghu Ram</div>
+  <div class="sidebar-role">B.Tech EEE · Full Stack Dev</div>
+
+  <div class="contacts">
+    <a class="contact-item" href="mailto:vraghuram104@gmail.com">
+      <div class="cicon">📧</div>
+      <div><div class="clabel">Email</div><div class="cval">vraghuram104@gmail.com</div></div>
+    </a>
+    <a class="contact-item" href="tel:+919182838497">
+      <div class="cicon">📞</div>
+      <div><div class="clabel">Phone</div><div class="cval">+91 91828 38497</div></div>
+    </a>
+    <a class="contact-item" href="https://linkedin.com/in/vvraghuram" target="_blank">
+      <div class="cicon">💼</div>
+      <div><div class="clabel">LinkedIn</div><div class="cval">linkedin.com/in/vvraghuram</div></div>
+    </a>
+    <a class="contact-item" href="https://github.com/vvraghuram" target="_blank">
+      <div class="cicon">🐙</div>
+      <div><div class="clabel">GitHub</div><div class="cval">github.com/vvraghuram</div></div>
+    </a>
+    <div class="contact-item">
+      <div class="cicon">📍</div>
+      <div><div class="clabel">Location</div><div class="cval">Rajahmundry, AP, India</div></div>
+    </div>
+  </div>
+
+  <nav class="nav-links">
+    <button class="nav-link active" onclick="show('about',this)"><span class="dot"></span>About</button>
+    <button class="nav-link" onclick="show('resume',this)"><span class="dot"></span>Resume</button>
+    <button class="nav-link" onclick="show('projects',this)"><span class="dot"></span>Projects</button>
+    <button class="nav-link" onclick="show('contact',this)"><span class="dot"></span>Contact</button>
+  </nav>
+</aside>
+
+<main class="main">
+
+  <!-- ABOUT -->
+  <section class="section active" id="about">
+    <h1 class="section-title">About <span>Me</span></h1>
+    <div class="title-line"></div>
+
+    <div class="stat-row">
+      <div class="stat-chip"><div class="stat-num">7.8</div><div class="stat-label">CGPA</div></div>
+      <div class="stat-chip"><div class="stat-num">3</div><div class="stat-label">Internships</div></div>
+      <div class="stat-chip"><div class="stat-num">5+</div><div class="stat-label">Projects</div></div>
+      <div class="stat-chip"><div class="stat-num">6+</div><div class="stat-label">Certifications</div></div>
+      <div class="stat-chip"><div class="stat-num">2026</div><div class="stat-label">Graduating</div></div>
+    </div>
+
+    <p class="about-bio">
+      I'm <strong>Raghu Ram</strong>, a final-year <strong>B.Tech undergraduate in Electrical & Electronics Engineering</strong>
+      at Godavari Institute of Engineering & Technology (GIET), Rajahmundry. I have a unique hybrid profile spanning
+      <strong>full-stack web development (MERN stack)</strong>, <strong>AWS cloud computing</strong>, and
+      <strong>embedded IoT systems</strong>. I've completed three industry internships, independently built deployable
+      real-world projects, and published a research paper in IJMTST (2026) on DFIG-based wind energy control.
+      I'm a fast learner who is passionate about technology, digital content creation, and creative problem-solving —
+      actively seeking a fresher opportunity in software, web development, or cloud engineering.
+    </p>
+
+    <div class="section-sub">What I'm Good At</div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-icon">🌐</div>
+        <div class="skill-title">Full Stack Web Dev</div>
+        <div class="skill-desc">MERN stack — MongoDB, Express.js, React.js, Node.js with REST APIs and responsive design.</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">☁️</div>
+        <div class="skill-title">Cloud & AWS</div>
+        <div class="skill-desc">EC2, S3, Lambda, API Gateway, DynamoDB — serverless architectures and cloud deployment.</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">⚡</div>
+        <div class="skill-title">Electronics & IoT</div>
+        <div class="skill-desc">Microcontrollers, embedded C, IoT sensors, power electronics, VLSI fundamentals.</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">💻</div>
+        <div class="skill-title">Programming</div>
+        <div class="skill-desc">Python, JavaScript, TypeScript, C, Java (core), HTML5, CSS3, SQL.</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🎨</div>
+        <div class="skill-title">UI & Design</div>
+        <div class="skill-desc">Responsive design, Canva, video production, content strategy and YouTube analytics.</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">📊</div>
+        <div class="skill-title">Data & Analytics</div>
+        <div class="skill-desc">MySQL, MongoDB, data visualization, HP LIFE Data Science & Analytics certified.</div>
+      </div>
+    </div>
+
+    <div class="section-sub">Hobbies & Interests</div>
+    <div class="hobbies-row">
+      <div class="hobby-tag">🎮 Gaming & Content Creation</div>
+      <div class="hobby-tag">🏏 Cricket (Team Captain)</div>
+      <div class="hobby-tag">📚 Reading Tech</div>
+      <div class="hobby-tag">🎵 Music</div>
+      <div class="hobby-tag">📹 YouTube Creator (@2in1_gamer)</div>
+      <div class="hobby-tag">🔬 Research & Innovation</div>
+    </div>
+  </section>
+
+  <!-- RESUME -->
+  <section class="section" id="resume">
+    <h1 class="section-title">My <span>Resume</span></h1>
+    <div class="title-line"></div>
+
+    <div class="resume-grid">
+      <!-- Education -->
+      <div>
+        <div class="resume-col-title">🎓 Education</div>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-year">2022 — 2026</div>
+            <div class="tl-title">B.Tech – EEE</div>
+            <div class="tl-sub">GIET, Rajahmundry</div>
+            <div class="tl-desc">Electrical & Electronics Engineering. CGPA: <strong>7.8 / 10</strong>. Relevant: Digital Electronics, Microprocessors, Power Systems, Control Systems, VLSI, Embedded Systems, Renewable Energy.</div>
+            <span class="tl-badge">CGPA 7.8</span>
+          </div>
+          <div class="tl-item">
+            <div class="tl-year">2020 — 2022</div>
+            <div class="tl-title">Intermediate (MPC)</div>
+            <div class="tl-sub">Aditya Junior College</div>
+            <div class="tl-desc">Mathematics, Physics & Chemistry. GPA: <strong>7.7</strong>.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Internships -->
+      <div>
+        <div class="resume-col-title">💼 Internships</div>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-year">Jun – Jul 2024</div>
+            <div class="tl-title">Cloud Computing Intern</div>
+            <div class="tl-sub">ExcelR Solutions (AWS / Azure)</div>
+            <div class="tl-desc">Built and deployed cloud apps using AWS EC2, S3, Lambda, API Gateway, DynamoDB. Gained practical cloud infrastructure experience.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-year">May – Jul 2024</div>
+            <div class="tl-title">Web Development Intern</div>
+            <div class="tl-sub">PantechE Learning</div>
+            <div class="tl-desc">Completed structured program in HTML, CSS, JavaScript, responsive design. Developed multiple functional frontend web apps independently.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-year">Sep 2024</div>
+            <div class="tl-title">Electrical Engineering Intern</div>
+            <div class="tl-sub">Manihamsa Power Projects Ltd, Yeleswaram</div>
+            <div class="tl-desc">15-day on-site internship covering hydroelectric power generation, step-up/step-down transformers, switchgear, protection relays, and high-voltage transmission.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Skills -->
+      <div class="skills-full">
+        <div class="resume-col-title">🛠️ Technical Skills</div>
+        <div class="skill-row">
+          <div class="skill-row-label">Languages</div>
+          <div class="skill-tags">
+            <span class="stag">Python</span><span class="stag">JavaScript</span><span class="stag">TypeScript</span>
+            <span class="stag">C</span><span class="stag">Java</span><span class="stag">HTML5</span><span class="stag">CSS3</span><span class="stag">Embedded C</span>
+          </div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-row-label">Web / MERN</div>
+          <div class="skill-tags">
+            <span class="stag">React.js</span><span class="stag">Node.js</span><span class="stag">Express.js</span>
+            <span class="stag">MongoDB</span><span class="stag">REST APIs</span><span class="stag">Responsive Design</span>
+          </div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-row-label">Cloud & AWS</div>
+          <div class="skill-tags">
+            <span class="stag">EC2</span><span class="stag">S3</span><span class="stag">Lambda</span>
+            <span class="stag">API Gateway</span><span class="stag">DynamoDB</span><span class="stag">Azure Fundamentals</span>
+          </div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-row-label">EEE / Embedded</div>
+          <div class="skill-tags">
+            <span class="stag">Arduino</span><span class="stag">8051 MCU</span><span class="stag">8085/8086</span>
+            <span class="stag">IoT Sensors</span><span class="stag">UART/I2C/SPI</span><span class="stag">Proteus</span>
+          </div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-row-label">Tools</div>
+          <div class="skill-tags">
+            <span class="stag">Git</span><span class="stag">GitHub</span><span class="stag">VS Code</span>
+            <span class="stag">MySQL</span><span class="stag">Canva</span><span class="stag">Arduino IDE</span>
+          </div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-row-label">Languages Known</div>
+          <div class="skill-tags">
+            <span class="stag">Telugu (Native)</span><span class="stag">English (Professional)</span><span class="stag">Hindi (Basic)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Certifications -->
+      <div style="grid-column:1/-1">
+        <div class="resume-col-title">🏆 Certifications</div>
+        <div class="cert-list">
+          <div class="cert-item"><div class="cert-num">01</div><div><div class="cert-text">AWS Cloud Computing</div><div class="cert-by">ExcelR / APSCHE Excellence</div></div></div>
+          <div class="cert-item"><div class="cert-num">02</div><div><div class="cert-text">Python 101 for Data Science</div><div class="cert-by">IBM / Cognitive Class</div></div></div>
+          <div class="cert-item"><div class="cert-num">03</div><div><div class="cert-text">MySQL for Beginners</div><div class="cert-by">Udemy</div></div></div>
+          <div class="cert-item"><div class="cert-num">04</div><div><div class="cert-text">Java for Beginners</div><div class="cert-by">Techwin</div></div></div>
+          <div class="cert-item"><div class="cert-num">05</div><div><div class="cert-text">Data Science & Analytics</div><div class="cert-by">HP LIFE</div></div></div>
+          <div class="cert-item"><div class="cert-num">06</div><div><div class="cert-text">LearnTube AWS Exam</div><div class="cert-by">Qualified</div></div></div>
+          <div class="cert-item"><div class="cert-num">07</div><div><div class="cert-text">Full Stack Web Dev (MERN)</div><div class="cert-by">Smartinterz</div></div></div>
+        </div>
+      </div>
+
+      <!-- Achievements -->
+      <div style="grid-column:1/-1">
+        <div class="resume-col-title">🌟 Achievements & Activities</div>
+        <div class="ach-grid">
+          <div class="ach-card"><div class="ach-icon">🥇</div><div class="ach-title">First Prize – PPT Presentation</div><div class="ach-sub">Mathematics Day Inter-College Competition</div></div>
+          <div class="ach-card"><div class="ach-icon">🏏</div><div class="ach-title">Cricket Team Captain</div><div class="ach-sub">Led team to victory – Intra-College Tournament</div></div>
+          <div class="ach-card"><div class="ach-icon">📹</div><div class="ach-title">YouTube Content Creator</div><div class="ach-sub">@2in1_gamer – Gaming & Tech channel</div></div>
+          <div class="ach-card"><div class="ach-icon">📄</div><div class="ach-title">Research Paper Published</div><div class="ach-sub">IJMTST 2026 – DFIG Wind Energy Control (THD: 0.30%)</div></div>
+          <div class="ach-card"><div class="ach-icon">🤝</div><div class="ach-title">Social Initiative</div><div class="ach-sub">Say No to Drugs – College Awareness Campaign</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="section" id="projects">
+    <h1 class="section-title">My <span>Projects</span></h1>
+    <div class="title-line"></div>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="project-emoji">🎓</div>
+        <div class="project-body">
+          <div class="project-tags"><span class="ptag">MongoDB</span><span class="ptag">Express.js</span><span class="ptag">React.js</span><span class="ptag">Node.js</span><span class="ptag">REST API</span></div>
+          <div class="project-name">Online Learning Platform (MERN)</div>
+          <div class="project-desc">Full-stack learning platform with RESTful APIs, secure concurrent user authentication, and a responsive React UI with reusable components. Applied MVC architecture with MongoDB for structured data persistence.</div>
+          <a class="project-link" href="https://github.com/vvraghuram/Longterm" target="_blank">🔗 View on GitHub →</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-emoji">⚡</div>
+        <div class="project-body">
+          <div class="project-tags"><span class="ptag">Python</span><span class="ptag">IoT Sensors</span><span class="ptag">Embedded C</span><span class="ptag">MySQL</span><span class="ptag">Relay Module</span></div>
+          <div class="project-name">Intelligent Energy Monitoring System (IoT)</div>
+          <div class="project-desc">Real-time smart energy monitoring system measuring electrical consumption per appliance using microcontrollers & IoT sensors. Integrated relay-controlled home automation based on energy thresholds.</div>
+          <a class="project-link" href="#">🔗 View Project →</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-emoji">☁️</div>
+        <div class="project-body">
+          <div class="project-tags"><span class="ptag">AWS Lambda</span><span class="ptag">API Gateway</span><span class="ptag">DynamoDB</span><span class="ptag">S3</span><span class="ptag">EC2</span></div>
+          <div class="project-name">AWS Serverless Web Application</div>
+          <div class="project-desc">Serverless application using AWS Lambda and API Gateway, reducing infrastructure overhead and improving scalability. Configured DynamoDB and S3 for cloud storage and static hosting.</div>
+          <a class="project-link" href="#">🔗 View Project →</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-emoji">🌞</div>
+        <div class="project-body">
+          <div class="project-tags"><span class="ptag">Power Electronics</span><span class="ptag">DC-DC Converter</span><span class="ptag">Solar PV</span><span class="ptag">MATLAB</span></div>
+          <div class="project-name">Advanced Solar Grid DC-DC Converter</div>
+          <div class="project-desc">Extendable multiport high step-up DC-DC converter for photovoltaic-battery hybrid systems. Minimized voltage stress on switches and diodes, enhancing component lifespan and system efficiency.</div>
+          <a class="project-link" href="#">🔗 View Project →</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-emoji">🏨</div>
+        <div class="project-body">
+          <div class="project-tags"><span class="ptag">React.js</span><span class="ptag">JavaScript</span><span class="ptag">CSS3</span></div>
+          <div class="project-name">Hotel Management System</div>
+          <div class="project-desc">React-based hotel management application with room booking, guest management, and billing features. Focused on clean UI and modular component architecture.</div>
+          <a class="project-link" href="#">🔗 View Project →</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-emoji">🤖</div>
+        <div class="project-body">
+          <div class="project-tags"><span class="ptag">React.js</span><span class="ptag">Anthropic API</span><span class="ptag">AI/ML</span></div>
+          <div class="project-name">ATS Resume Analyzer</div>
+          <div class="project-desc">AI-powered resume analyzer React component using the Anthropic Claude API. Analyzes resumes against job descriptions and provides ATS compatibility scores and improvement suggestions.</div>
+          <a class="project-link" href="#">🔗 View Project →</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section" id="contact">
+    <h1 class="section-title">Get In <span>Touch</span></h1>
+    <div class="title-line"></div>
+    <div class="contact-wrap">
+      <form class="contact-form" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="form-group"><label>Full Name</label><input type="text" placeholder="Your Name" required/></div>
+          <div class="form-group"><label>Email</label><input type="email" placeholder="your@email.com" required/></div>
+        </div>
+        <div class="form-group"><label>Subject</label><input type="text" placeholder="Opportunity / Collaboration" required/></div>
+        <div class="form-group"><label>Message</label><textarea placeholder="Tell me about the opportunity..."></textarea></div>
+        <button type="submit" class="btn-send">✉️ Send Message</button>
+      </form>
+
+      <div class="contact-info">
+        <a class="ci-item" href="mailto:vraghuram104@gmail.com">
+          <div class="ci-icon">📧</div>
+          <div><div class="ci-label">Email</div><div class="ci-value">vraghuram104@gmail.com</div></div>
+        </a>
+        <a class="ci-item" href="tel:+919182838497">
+          <div class="ci-icon">📞</div>
+          <div><div class="ci-label">Phone</div><div class="ci-value">+91 91828 38497</div></div>
+        </a>
+        <a class="ci-item" href="https://linkedin.com/in/vvraghuram" target="_blank">
+          <div class="ci-icon">💼</div>
+          <div><div class="ci-label">LinkedIn</div><div class="ci-value">linkedin.com/in/vvraghuram</div></div>
+        </a>
+        <a class="ci-item" href="https://github.com/vvraghuram" target="_blank">
+          <div class="ci-icon">🐙</div>
+          <div><div class="ci-label">GitHub</div><div class="ci-value">github.com/vvraghuram</div></div>
+        </a>
+        <div class="ci-item">
+          <div class="ci-icon">📍</div>
+          <div><div class="ci-label">Location</div><div class="ci-value">Rajahmundry, Andhra Pradesh, India</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+function show(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  if (window.innerWidth <= 880) document.getElementById('sidebar').classList.remove('open');
+}
+function handleSubmit(e) {
+  e.preventDefault();
+  alert('✅ Message sent! Thank you for reaching out. Raghu Ram will get back to you soon.');
+  e.target.reset();
+}
+</script>
+</body>
+</html>
