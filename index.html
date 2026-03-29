@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Veeravalli Venkata Raghu Ram | Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Raleway:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    :root{
+      --bg:#1e1e1f;--bg2:#252526;--bg3:#2a2a2b;--bghov:#303031;
+      --acc:#ffd700;--text:#e0e0e0;--muted:#9a9a9a;--dim:#6b6b6b;
+      --bdr:#333334;--bdrl:#3e3e3f;--sw:280px;--r:12px;--rs:8px;
+      --tr:all .3s cubic-bezier(.4,0,.2,1);
+    }
+    html{scroll-behavior:smooth;}
+    body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+    a{text-decoration:none;color:inherit;}button{cursor:pointer;font-family:inherit;}
+    ::-webkit-scrollbar{width:5px;}
+    ::-webkit-scrollbar-track{background:var(--bg2);}
+    ::-webkit-scrollbar-thumb{background:var(--bdrl);border-radius:4px;}
+    ::-webkit-scrollbar-thumb:hover{background:var(--acc);}
+
+    /* LAYOUT */
+    .layout{display:flex;min-height:100vh;}
+
+    /* SIDEBAR */
+    .sidebar{width:var(--sw);background:var(--bg2);border-right:1px solid var(--bdr);position:fixed;top:0;left:0;bottom:0;z-index:200;overflow-y:auto;display:flex;flex-direction:column;padding-bottom:24px;transition:transform .4s cubic-bezier(.4,0,.2,1);}
+    .sidebar::-webkit-scrollbar{width:3px;}
+
+    .avblock{padding:28px 22px 18px;text-align:center;border-bottom:1px solid var(--bdr);}
+    .avring{width:100px;height:100px;border-radius:50%;padding:3px;margin:0 auto 12px;background:conic-gradient(var(--acc),#ff6b35,#9b59b6,var(--acc));animation:spin 6s linear infinite;}
+    @keyframes spin{to{transform:rotate(360deg);}}
+    .avinner{width:100%;height:100%;border-radius:50%;background:var(--bg2);display:flex;align-items:center;justify-content:center;overflow:hidden;}
+    .avinner img{width:100%;height:100%;object-fit:cover;object-position:top;border-radius:50%;}
+    .avinit{font-family:'Raleway',sans-serif;font-size:2rem;font-weight:800;color:var(--acc);}
+    .avname{font-family:'Raleway',sans-serif;font-size:1rem;font-weight:700;color:#fff;margin-bottom:5px;line-height:1.3;}
+    .avrole{font-size:.68rem;color:var(--muted);background:var(--bg3);padding:4px 11px;border-radius:20px;display:inline-block;border:1px solid var(--bdrl);}
+
+    .ctoggle{display:flex;align-items:center;justify-content:center;gap:7px;width:calc(100% - 28px);margin:14px auto 0;background:transparent;border:1px solid var(--bdrl);color:var(--text);padding:8px 14px;border-radius:6px;font-size:.74rem;font-weight:500;transition:var(--tr);}
+    .ctoggle:hover{background:var(--bghov);border-color:var(--acc);color:var(--acc);}
+    .ctoggle .arr{transition:transform .3s ease;font-size:.6rem;}
+    .ctoggle.open .arr{transform:rotate(180deg);}
+
+    .cpanel{padding:0 14px;max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s ease;}
+    .cpanel.open{max-height:500px;padding:10px 14px;}
+    .crow{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid var(--bdr);}
+    .crow:last-child{border-bottom:none;}
+    .cicn{width:34px;height:34px;flex-shrink:0;background:var(--bg3);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:.95rem;color:var(--acc);border:1px solid var(--bdr);}
+    .clabel{font-size:.58rem;text-transform:uppercase;letter-spacing:.08em;color:var(--dim);margin-bottom:1px;}
+    .cval{font-size:.72rem;color:var(--text);word-break:break-all;}
+    .cval a:hover{color:var(--acc);}
+
+    .snav{padding:14px 10px;flex:1;}
+    .nitem{display:flex;align-items:center;gap:9px;padding:10px 13px;border-radius:var(--rs);font-size:.8rem;font-weight:500;color:var(--muted);transition:var(--tr);cursor:pointer;background:transparent;border:none;width:100%;text-align:left;margin-bottom:3px;position:relative;}
+    .nitem::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:3px;height:0;background:var(--acc);border-radius:0 3px 3px 0;transition:height .3s ease;}
+    .nitem:hover{color:var(--text);background:var(--bghov);}
+    .nitem.active{color:var(--acc);background:rgba(255,215,0,.07);}
+    .nitem.active::before{height:60%;}
+    .nico{font-size:.95rem;width:20px;text-align:center;}
+
+    .mmb{display:none;position:fixed;top:14px;right:14px;z-index:300;background:var(--bg2);border:1px solid var(--bdrl);color:var(--text);padding:9px;border-radius:var(--rs);font-size:1.1rem;transition:var(--tr);}
+    .mmb:hover{border-color:var(--acc);color:var(--acc);}
+    .ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:199;}
+
+    /* MAIN */
+    .main{margin-left:var(--sw);flex:1;min-height:100vh;}
+    .psec{display:none;padding:42px 46px;animation:fiu .45s ease;min-height:100vh;}
+    .psec.active{display:block;}
+    @keyframes fiu{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+    /* Section header */
+    .sh{margin-bottom:32px;}
+    .sh h2{font-family:'Raleway',sans-serif;font-size:1.9rem;font-weight:800;color:#fff;margin-bottom:4px;display:inline-block;position:relative;}
+    .sh h2 span{color:var(--acc);}
+    .sh h2::after{content:'';position:absolute;bottom:-6px;left:0;width:38px;height:3px;background:var(--acc);border-radius:2px;}
+    .sdiv{width:100%;height:1px;background:linear-gradient(90deg,var(--bdrl),transparent);margin-top:16px;}
+
+    /* ABOUT */
+    .abio{max-width:730px;font-size:.9rem;line-height:1.88;color:var(--text);margin-bottom:32px;}
+    .abio p{margin-bottom:12px;}
+    .abio p:last-child{margin-bottom:0;}
+    .hl{color:var(--acc);font-weight:600;}
+    .ytl{color:var(--acc);font-weight:600;transition:var(--tr);}
+    .ytl:hover{text-decoration:underline;}
+    .achibi{width:160px;height:160px;background:var(--bg3);border-radius:var(--r);border:1px solid var(--bdr);display:flex;align-items:center;justify-content:center;font-size:4.5rem;float:right;margin:0 0 18px 28px;transition:var(--tr);}
+    .achibi:hover{transform:rotate(-4deg) scale(1.06);}
+    .cf::after{content:'';display:table;clear:both;}
+
+    .sstitle{font-family:'Raleway',sans-serif;font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:18px;display:flex;align-items:center;gap:8px;}
+    .sstitle::before{content:'';width:4px;height:18px;background:var(--acc);border-radius:2px;}
+
+    .skgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;margin-bottom:38px;}
+    .skcard{background:var(--bg3);border:1px solid var(--bdr);border-radius:var(--r);padding:18px;display:flex;align-items:flex-start;gap:12px;transition:var(--tr);position:relative;overflow:hidden;}
+    .skcard::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--acc);transition:width .4s ease;}
+    .skcard:hover{transform:translateY(-4px);border-color:var(--bdrl);box-shadow:0 12px 28px rgba(0,0,0,.42);}
+    .skcard:hover::after{width:100%;}
+    .skico{width:42px;height:42px;flex-shrink:0;background:var(--bghov);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;border:1px solid var(--bdrl);}
+    .skbody h4{font-size:.84rem;font-weight:600;color:#fff;margin-bottom:4px;}
+    .skbody p{font-size:.72rem;color:var(--muted);line-height:1.5;}
+
+    /* Favs */
+    .favgrid{display:flex;flex-wrap:wrap;gap:11px;margin-bottom:12px;}
+    .favc{width:88px;display:flex;flex-direction:column;align-items:center;cursor:pointer;transition:var(--tr);text-decoration:none;}
+    .favc:hover{transform:translateY(-6px);}
+    .favimg{width:88px;height:124px;border-radius:var(--rs);overflow:hidden;border:2px solid var(--bdr);transition:var(--tr);display:flex;align-items:center;justify-content:center;font-size:2.6rem;background:var(--bg3);}
+    .favc:hover .favimg{border-color:var(--acc);box-shadow:0 8px 22px rgba(255,215,0,.18);}
+    .favtitle{font-size:.6rem;color:var(--muted);text-align:center;margin-top:5px;line-height:1.3;}
+
+    /* RESUME */
+    .r2col{display:grid;grid-template-columns:1fr 1fr;gap:36px;margin-bottom:36px;}
+    .rcol h3{font-family:'Raleway',sans-serif;font-size:1rem;font-weight:700;color:var(--acc);text-transform:uppercase;letter-spacing:.08em;margin-bottom:20px;display:flex;align-items:center;gap:7px;}
+
+    .tl{position:relative;padding-left:20px;}
+    .tl::before{content:'';position:absolute;left:5px;top:0;bottom:0;width:1px;background:var(--bdrl);}
+    .tli{position:relative;margin-bottom:24px;animation:fil .5s ease both;}
+    @keyframes fil{from{opacity:0;transform:translateX(-14px);}to{opacity:1;transform:translateX(0);}}
+    .tli::before{content:'';position:absolute;left:-17px;top:5px;width:9px;height:9px;background:var(--acc);border-radius:50%;box-shadow:0 0 0 3px rgba(255,215,0,.13);}
+    .tldate{font-size:.65rem;font-weight:600;color:var(--acc);text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;}
+    .tltitle{font-size:.85rem;font-weight:600;color:#fff;margin-bottom:2px;}
+    .tlorg{font-size:.73rem;color:var(--muted);margin-bottom:6px;}
+    .tldesc{font-size:.72rem;color:var(--muted);line-height:1.6;}
+    .tldesc ul{padding-left:13px;list-style:disc;}
+    .tldesc li{margin-bottom:3px;}
+    .tlbadge{display:inline-block;font-size:.6rem;font-weight:600;padding:2px 8px;background:rgba(255,215,0,.1);color:var(--acc);border-radius:20px;border:1px solid rgba(255,215,0,.22);margin-top:5px;}
+
+    .skfull{margin-bottom:32px;}
+    .skcat{margin-bottom:13px;display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap;}
+    .skcatlbl{font-size:.68rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;min-width:165px;padding-top:4px;}
+    .sktags{display:flex;flex-wrap:wrap;gap:6px;}
+    .sktag{font-size:.7rem;font-weight:500;padding:4px 11px;background:var(--bg3);border:1px solid var(--bdrl);border-radius:5px;color:var(--text);transition:var(--tr);}
+    .sktag:hover{background:rgba(255,215,0,.07);border-color:var(--acc);color:var(--acc);}
+
+    .certgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:11px;margin-bottom:32px;}
+    .certc{background:var(--bg3);border:1px solid var(--bdr);border-radius:var(--rs);padding:13px 15px;display:flex;align-items:center;gap:11px;transition:var(--tr);}
+    .certc:hover{border-color:var(--acc);transform:translateX(4px);}
+    .certco{font-size:1.3rem;flex-shrink:0;}
+    .certtitle{font-size:.78rem;font-weight:600;color:#fff;}
+    .certiss{font-size:.65rem;color:var(--muted);margin-top:2px;}
+
+    .achgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:13px;}
+    .achc{background:var(--bg3);border:1px solid var(--bdr);border-radius:var(--r);padding:16px;text-align:center;transition:var(--tr);}
+    .achc:hover{transform:translateY(-5px);border-color:var(--acc);box-shadow:0 10px 26px rgba(0,0,0,.38);}
+    .achico{font-size:1.9rem;margin-bottom:8px;}
+    .achtitle{font-size:.78rem;font-weight:600;color:#fff;margin-bottom:3px;}
+    .achsub{font-size:.66rem;color:var(--muted);line-height:1.4;}
+
+    /* PORTFOLIO */
+    .pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:18px;}
+    .pcard{background:var(--bg3);border:1px solid var(--bdr);border-radius:var(--r);overflow:hidden;transition:var(--tr);cursor:pointer;}
+    .pcard:hover{transform:translateY(-6px);border-color:var(--bdrl);box-shadow:0 18px 40px rgba(0,0,0,.5);}
+    .pthumb{height:150px;display:flex;align-items:center;justify-content:center;font-size:3.8rem;position:relative;overflow:hidden;}
+    .pthumb::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 50%,var(--bg3) 100%);}
+    .pbody{padding:16px;}
+    .ptags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:9px;}
+    .ptag{font-size:.6rem;font-weight:600;padding:2px 7px;background:rgba(255,215,0,.07);color:var(--acc);border-radius:4px;border:1px solid rgba(255,215,0,.18);text-transform:uppercase;letter-spacing:.03em;}
+    .ptitle{font-family:'Raleway',sans-serif;font-size:.92rem;font-weight:700;color:#fff;margin-bottom:7px;}
+    .pdesc{font-size:.74rem;color:var(--muted);line-height:1.58;margin-bottom:13px;}
+    .pacts{display:flex;gap:9px;}
+    .pbtn{font-size:.7rem;font-weight:600;padding:6px 13px;border-radius:5px;border:1px solid var(--bdrl);background:var(--bghov);color:var(--text);transition:var(--tr);display:flex;align-items:center;gap:5px;text-decoration:none;}
+    .pbtn:hover{background:var(--acc);color:#000;border-color:var(--acc);}
+    .pbtn.pri{background:var(--acc);color:#000;border-color:var(--acc);}
+    .pbtn.pri:hover{background:#fff;border-color:#fff;}
+
+    /* MODAL */
+    .mov{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:500;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s ease;padding:20px;}
+    .mov.open{opacity:1;pointer-events:all;}
+    .mbox{background:var(--bg2);border:1px solid var(--bdrl);border-radius:var(--r);width:100%;max-width:600px;max-height:90vh;overflow-y:auto;transform:scale(.9);transition:transform .3s ease;}
+    .mbox::-webkit-scrollbar{width:3px;}
+    .mov.open .mbox{transform:scale(1);}
+    .mhead{padding:18px 22px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;justify-content:space-between;}
+    .mtitle{font-family:'Raleway',sans-serif;font-size:1.05rem;font-weight:700;color:#fff;}
+    .mcls{background:var(--bghov);border:1px solid var(--bdr);color:var(--muted);width:30px;height:30px;border-radius:5px;font-size:1rem;transition:var(--tr);}
+    .mcls:hover{background:#c0392b;border-color:#c0392b;color:#fff;}
+    .mbody{padding:22px;}
+    .memi{font-size:3.8rem;text-align:center;margin-bottom:18px;}
+    .msectitle{font-size:.74rem;font-weight:600;color:var(--acc);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px;margin-top:16px;}
+    .mdesc{font-size:.8rem;color:var(--muted);line-height:1.7;}
+    .mfeats{list-style:disc;padding-left:16px;}
+    .mfeats li{font-size:.77rem;color:var(--muted);margin-bottom:5px;line-height:1.5;}
+    .mtechtags{display:flex;flex-wrap:wrap;gap:6px;margin-top:5px;}
+    .mtech{font-size:.7rem;padding:3px 9px;background:var(--bg3);border:1px solid var(--bdrl);border-radius:4px;color:var(--text);}
+    .macts{margin-top:22px;display:flex;gap:11px;}
+
+    /* CONTACT */
+    .cgrid{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:start;}
+    .cfc{background:var(--bg3);border:1px solid var(--bdr);border-radius:var(--r);padding:28px;}
+    .cfc h3{font-family:'Raleway',sans-serif;font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:18px;}
+    .fg{margin-bottom:14px;}
+    .frow{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;}
+    .fg label{display:block;font-size:.68rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;}
+    .fg input,.fg textarea{width:100%;background:var(--bg2);border:1px solid var(--bdrl);border-radius:7px;padding:10px 13px;color:var(--text);font-family:'Poppins',sans-serif;font-size:.8rem;outline:none;transition:var(--tr);resize:vertical;}
+    .fg input::placeholder,.fg textarea::placeholder{color:var(--dim);}
+    .fg input:focus,.fg textarea:focus{border-color:var(--acc);box-shadow:0 0 0 3px rgba(255,215,0,.07);}
+    .fg textarea{min-height:115px;}
+    .bsub{width:100%;background:var(--acc);color:#000;border:none;padding:12px 22px;border-radius:7px;font-family:'Raleway',sans-serif;font-size:.86rem;font-weight:700;letter-spacing:.04em;transition:var(--tr);display:flex;align-items:center;justify-content:center;gap:7px;}
+    .bsub:hover{background:#fff;transform:translateY(-2px);box-shadow:0 8px 22px rgba(255,215,0,.22);}
+    .fstat{margin-top:11px;font-size:.77rem;padding:9px 13px;border-radius:5px;display:none;}
+    .fstat.ok{display:block;background:rgba(39,174,96,.14);color:#27ae60;border:1px solid rgba(39,174,96,.28);}
+    .fstat.er{display:block;background:rgba(231,76,60,.14);color:#e74c3c;border:1px solid rgba(231,76,60,.28);}
+    .cipanel{display:flex;flex-direction:column;gap:11px;}
+    .ciitem{background:var(--bg3);border:1px solid var(--bdr);border-radius:var(--rs);padding:13px 15px;display:flex;align-items:center;gap:12px;transition:var(--tr);text-decoration:none;color:inherit;}
+    .ciitem:hover{border-color:var(--acc);transform:translateX(5px);}
+    .ciico{font-size:1.2rem;flex-shrink:0;}
+    .cilbl{font-size:.6rem;text-transform:uppercase;letter-spacing:.07em;color:var(--dim);margin-bottom:2px;}
+    .cival{font-size:.8rem;color:var(--text);font-weight:500;}
+
+    /* STAGGER */
+    .sc{animation:fiu .5s ease both;}
+    .sc:nth-child(1){animation-delay:.05s;}.sc:nth-child(2){animation-delay:.1s;}.sc:nth-child(3){animation-delay:.15s;}
+    .sc:nth-child(4){animation-delay:.2s;}.sc:nth-child(5){animation-delay:.25s;}.sc:nth-child(6){animation-delay:.3s;}
+    .sc:nth-child(7){animation-delay:.35s;}.sc:nth-child(8){animation-delay:.4s;}
+
+    .mb8{margin-bottom:8px;}.mb14{margin-bottom:14px;}.mb24{margin-bottom:24px;}.mb32{margin-bottom:32px;}
+
+    @media(max-width:900px){
+      .sidebar{transform:translateX(-100%);}
+      .sidebar.open{transform:translateX(0);}
+      .ov.open{display:block;}
+      .mmb{display:flex;align-items:center;justify-content:center;}
+      .main{margin-left:0;}
+      .psec{padding:50px 18px 32px;}
+      .r2col,.cgrid{grid-template-columns:1fr;}
+      .achibi{float:none;margin:0 auto 20px;}
+      .frow{grid-template-columns:1fr;}
+    }
+    @media(max-width:600px){
+      .pgrid,.skgrid{grid-template-columns:1fr;}
+      .certgrid{grid-template-columns:1fr;}
+      .achgrid{grid-template-columns:1fr 1fr;}
+    }
+  </style>
+</head>
+<body>
+
+<button class="mmb" id="mmb" onclick="toggleSidebar()">☰</button>
+<div class="ov" id="ov" onclick="toggleSidebar()"></div>
+
+<div class="layout">
+
+<!-- ═══ SIDEBAR ═══════════════════════════════════ -->
+<aside class="sidebar" id="sidebar">
+  <div class="avblock">
+    <div class="avring">
+      <div class="avinner">
+        <!-- Place your photo as "photo.jpg" in the same folder -->
+        <img src="photo.jpg" alt="Raghu Ram"
+             onerror="this.style.display='none';document.getElementById('avinit').style.display='flex';"/>
+        <div class="avinit" id="avinit" style="display:none;">VR</div>
+      </div>
+    </div>
+    <div class="avname">Veeravalli Venkata<br/>Raghu Ram</div>
+    <div class="avrole">EEE Undergrad · Full Stack Dev</div>
+    <button class="ctoggle" id="ctoggle" onclick="toggleContacts()">
+      Show Contacts <span class="arr">▼</span>
+    </button>
+  </div>
+
+  <div class="cpanel" id="cpanel">
+    <div class="crow"><div class="cicn">📧</div><div><div class="clabel">Email</div><div class="cval"><a href="/cdn-cgi/l/email-protection#8dfbffeceae5f8ffece0bcbdb9cdeae0ece4e1a3eee2e0"><span class="__cf_email__" data-cfemail="8bfdf9eaece3fef9eae6babbbfcbece6eae2e7a5e8e4e6">[email&#160;protected]</span></a></div></div></div>
+    <div class="crow"><div class="cicn">📞</div><div><div class="clabel">Phone</div><div class="cval"><a href="tel:+919182838497">+91 91828 38497</a></div></div></div>
+    <div class="crow"><div class="cicn">🎂</div><div><div class="clabel">Birthday</div><div class="cval">April 24, 2005</div></div></div>
+    <div class="crow"><div class="cicn">📍</div><div><div class="clabel">Location</div><div class="cval">Rajahmundry, AP, India</div></div></div>
+    <div class="crow"><div class="cicn">💼</div><div><div class="clabel">LinkedIn</div><div class="cval"><a href="https://linkedin.com/in/vvraghuram" target="_blank">linkedin.com/in/vvraghuram</a></div></div></div>
+    <div class="crow"><div class="cicn">🐙</div><div><div class="clabel">GitHub</div><div class="cval"><a href="https://github.com/vvraghuram" target="_blank">github.com/vvraghuram</a></div></div></div>
+  </div>
+
+  <nav class="snav">
+    <button class="nitem active" onclick="nav('about',this)"><span class="nico">👤</span>About</button>
+    <button class="nitem" onclick="nav('resume',this)"><span class="nico">📄</span>Resume</button>
+    <button class="nitem" onclick="nav('portfolio',this)"><span class="nico">💻</span>Portfolio</button>
+    <button class="nitem" onclick="nav('contact',this)"><span class="nico">✉️</span>Contact</button>
+  </nav>
+</aside>
+
+<!-- ═══ MAIN ═══════════════════════════════════════ -->
+<main class="main">
+
+<!-- ─── ABOUT ──────────────────────────────────── -->
+<section class="psec active" id="about">
+  <div class="sh"><h2>About <span>Me</span></h2><div class="sdiv"></div></div>
+
+  <div class="cf">
+    <div class="achibi" title="Raghu Ram">🧑‍💻</div>
+    <div class="abio">
+      <p>I'm <span class="hl">Veeravalli Venkata Raghu Ram</span>, a final-year
+      <span class="hl">B.Tech undergraduate in Electrical &amp; Electronics Engineering (EEE)</span>
+      at Godavari Institute of Engineering &amp; Technology (GIET), Rajahmundry, Andhra Pradesh.</p>
+      <p>I carry a hybrid technical profile spanning <span class="hl">Full-Stack Web Development (MERN Stack)</span>,
+      <span class="hl">AWS Cloud Computing</span>, and <span class="hl">IoT / Embedded Systems</span>.
+      I completed three industry internships, independently built deployable real-world projects, and
+      published a <span class="hl">research paper in IJMTST (2026)</span> on DFIG-based wind energy control
+      achieving a THD of just 0.30%.</p>
+      <p>I'm constantly driven to push boundaries — building serverless cloud architectures, IoT-based smart
+      metering systems, or crafting intuitive React interfaces. My goal is to contribute to cutting-edge
+      software and cloud engineering in a growth-oriented organization.</p>
+      <p>Outside of tech, I'm a passionate gamer and
+      <a class="ytl" href="https://youtube.com/@2in1_gamer" target="_blank">YouTube creator (@2in1_gamer)</a>
+      covering gaming and tech. I led my college cricket team to an intra-college tournament victory and
+      actively support social awareness campaigns. Let's connect and collaborate! 🏏</p>
+    </div>
+  </div>
+
+  <div class="sstitle">Things I Am Good At</div>
+  <div class="skgrid">
+    <div class="skcard sc"><div class="skico">🌐</div><div class="skbody"><h4>Full-Stack Web Development</h4><p>Building end-to-end MERN stack apps with RESTful APIs, React UIs, and MongoDB-backed servers.</p></div></div>
+    <div class="skcard sc"><div class="skico">☁️</div><div class="skbody"><h4>Cloud &amp; AWS</h4><p>Serverless architectures with Lambda, API Gateway, DynamoDB, S3, and EC2 — production deployments.</p></div></div>
+    <div class="skcard sc"><div class="skico">⚡</div><div class="skbody"><h4>Embedded Systems &amp; IoT</h4><p>Real-time IoT solutions using microcontrollers, sensors, UART/I2C/SPI protocols, and Embedded C.</p></div></div>
+    <div class="skcard sc"><div class="skico">🔌</div><div class="skbody"><h4>Power Electronics</h4><p>Designing DC-DC converters, solar PV systems, inverters, and motor control circuits.</p></div></div>
+    <div class="skcard sc"><div class="skico">💡</div><div class="skbody"><h4>Problem Solving</h4><p>Fast learner who thrives on complexity — from cloud debugging to circuit simulation challenges.</p></div></div>
+    <div class="skcard sc"><div class="skico">🎬</div><div class="skbody"><h4>Content Creation</h4><p>Video production, content strategy, YouTube analytics, SEO basics, and Canva design skills.</p></div></div>
+  </div>
+
+  <div class="sstitle">My Favourite Movies &amp; Series</div>
+  <div class="favgrid">
+    <a class="favc" href="https://www.imdb.com/title/tt11032374/" target="_blank"><div class="favimg">🔥</div><div class="favtitle">Pushpa 2: The Rule</div></a>
+    <a class="favc" href="https://www.imdb.com/title/tt8178634/" target="_blank"><div class="favimg">🌊</div><div class="favtitle">RRR</div></a>
+    <a class="favc" href="https://www.imdb.com/title/tt15097216/" target="_blank"><div class="favimg">💎</div><div class="favtitle">KGF Chapter 2</div></a>
+    <a class="favc" href="https://www.imdb.com/title/tt7525590/" target="_blank"><div class="favimg">🔫</div><div class="favtitle">Mirzapur</div></a>
+    <a class="favc" href="https://www.imdb.com/title/tt0816692/" target="_blank"><div class="favimg">🚀</div><div class="favtitle">Interstellar</div></a>
+    <a class="favc" href="https://www.imdb.com/title/tt20969586/" target="_blank"><div class="favimg">🐾</div><div class="favtitle">Animal</div></a>
+    <a class="favc" href="https://www.imdb.com/title/tt30307398/" target="_blank"><div class="favimg">⚓</div><div class="favtitle">Devara</div></a>
+    <a class="favc" href="https://www.imdb.com/title/tt26323987/" target="_blank"><div class="favimg">🤖</div><div class="favtitle">Kalki 2898-AD</div></a>
+    <a class="favc" href="https://www.imdb.com/title/tt5753856/" target="_blank"><div class="favimg">🌑</div><div class="favtitle">Dark (Netflix)</div></a>
+  </div>
+</section>
+
+<!-- ─── RESUME ─────────────────────────────────── -->
+<section class="psec" id="resume">
+  <div class="sh"><h2>My <span>Resume</span></h2><div class="sdiv"></div></div>
+
+  <div class="r2col">
+    <div>
+      <h3>🎓 Education</h3>
+      <div class="tl">
+        <div class="tli">
+          <div class="tldate">2022 — 2026</div>
+          <div class="tltitle">B.Tech — Electrical &amp; Electronics Engineering</div>
+          <div class="tlorg">GIET, Rajahmundry, Andhra Pradesh</div>
+          <div class="tldesc"><ul>
+            <li><strong>CGPA: 7.8 / 10</strong></li>
+            <li>Digital Electronics, Microprocessors, Power Electronics, Control Systems, VLSI, Embedded Systems, Renewable Energy Systems</li>
+          </ul></div>
+          <span class="tlbadge">CGPA 7.8 / 10</span>
+        </div>
+        <div class="tli">
+          <div class="tldate">2020 — 2022</div>
+          <div class="tltitle">Intermediate — MPC</div>
+          <div class="tlorg">Aditya Junior College</div>
+          <div class="tldesc"><ul><li>Mathematics, Physics &amp; Chemistry</li><li><strong>GPA: 7.7</strong></li></ul></div>
+          <span class="tlbadge">GPA 7.7</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h3>💼 Internships</h3>
+      <div class="tl">
+        <div class="tli">
+          <div class="tldate">Jun – Jul 2024</div>
+          <div class="tltitle">Cloud Computing Intern (AWS / Azure)</div>
+          <div class="tlorg">ExcelR Solutions</div>
+          <div class="tldesc"><ul>
+            <li>Deployed cloud apps using EC2, S3, Lambda, API Gateway, DynamoDB</li>
+            <li>Built serverless architectures reducing infrastructure overhead</li>
+            <li>Earned APSCHE Excellence Certification in AWS Cloud Computing</li>
+          </ul></div>
+        </div>
+        <div class="tli">
+          <div class="tldate">May – Jul 2024</div>
+          <div class="tltitle">Web Development Intern</div>
+          <div class="tlorg">PantechE Learning</div>
+          <div class="tldesc"><ul>
+            <li>HTML, CSS, JavaScript, responsive design program</li>
+            <li>Built multiple functional frontend web applications independently</li>
+          </ul></div>
+        </div>
+        <div class="tli">
+          <div class="tldate">September 2024</div>
+          <div class="tltitle">Electrical Engineering Intern</div>
+          <div class="tlorg">Manihamsa Power Projects Ltd, Yeleswaram</div>
+          <div class="tldesc"><ul>
+            <li>15-day on-site at a live hydroelectric power plant</li>
+            <li>Transformers, switchgear, protection relays, HV transmission</li>
+            <li>Real-time load management and distribution boards</li>
+          </ul></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sstitle mb14">🛠️ My Skills</div>
+  <div class="skfull">
+    <div class="skcat"><div class="skcatlbl">Programming Languages</div><div class="sktags"><span class="sktag">C</span><span class="sktag">Python</span><span class="sktag">JavaScript</span><span class="sktag">TypeScript</span><span class="sktag">Java (Core)</span><span class="sktag">HTML5</span><span class="sktag">CSS3</span><span class="sktag">Embedded C</span></div></div>
+    <div class="skcat"><div class="skcatlbl">Web / MERN Stack</div><div class="sktags"><span class="sktag">React.js</span><span class="sktag">Node.js</span><span class="sktag">Express.js</span><span class="sktag">MongoDB</span><span class="sktag">REST APIs</span><span class="sktag">Responsive Design</span></div></div>
+    <div class="skcat"><div class="skcatlbl">Cloud &amp; AWS</div><div class="sktags"><span class="sktag">EC2</span><span class="sktag">S3</span><span class="sktag">Lambda</span><span class="sktag">API Gateway</span><span class="sktag">DynamoDB</span><span class="sktag">Azure Fundamentals</span></div></div>
+    <div class="skcat"><div class="skcatlbl">EEE / Embedded</div><div class="sktags"><span class="sktag">8051 MCU</span><span class="sktag">Arduino</span><span class="sktag">8085/8086</span><span class="sktag">IoT Sensors</span><span class="sktag">UART/I2C/SPI</span><span class="sktag">Proteus</span><span class="sktag">MATLAB</span></div></div>
+    <div class="skcat"><div class="skcatlbl">Databases &amp; Tools</div><div class="sktags"><span class="sktag">MySQL</span><span class="sktag">MongoDB</span><span class="sktag">Git</span><span class="sktag">GitHub</span><span class="sktag">VS Code</span><span class="sktag">Canva</span></div></div>
+    <div class="skcat"><div class="skcatlbl">Languages Known</div><div class="sktags"><span class="sktag">Telugu (Native)</span><span class="sktag">English (Professional)</span><span class="sktag">Hindi (Basic)</span></div></div>
+  </div>
+
+  <div class="sstitle mb14">🏆 Certifications</div>
+  <div class="certgrid">
+    <div class="certc sc"><div class="certco">☁️</div><div><div class="certtitle">AWS Cloud Computing</div><div class="certiss">ExcelR / APSCHE Excellence</div></div></div>
+    <div class="certc sc"><div class="certco">🐍</div><div><div class="certtitle">Python 101 for Data Science</div><div class="certiss">IBM / Cognitive Class</div></div></div>
+    <div class="certc sc"><div class="certco">🗄️</div><div><div class="certtitle">MySQL for Beginners</div><div class="certiss">Udemy</div></div></div>
+    <div class="certc sc"><div class="certco">☕</div><div><div class="certtitle">Java for Beginners</div><div class="certiss">Techwin</div></div></div>
+    <div class="certc sc"><div class="certco">📊</div><div><div class="certtitle">Data Science &amp; Analytics</div><div class="certiss">HP LIFE</div></div></div>
+    <div class="certc sc"><div class="certco">🏅</div><div><div class="certtitle">LearnTube AWS Competitive Exam</div><div class="certiss">Qualified</div></div></div>
+    <div class="certc sc"><div class="certco">🌐</div><div><div class="certtitle">Full Stack Web Dev (MERN)</div><div class="certiss">Smartinterz</div></div></div>
+  </div>
+
+  <div class="sstitle mb14">⭐ Achievements &amp; Activities</div>
+  <div class="achgrid">
+    <div class="achc sc"><div class="achico">🥇</div><div class="achtitle">First Prize – PPT Presentation</div><div class="achsub">Mathematics Day Inter-College Competition</div></div>
+    <div class="achc sc"><div class="achico">🏏</div><div class="achtitle">Cricket Team Captain</div><div class="achsub">Led team to win Intra-College Tournament</div></div>
+    <div class="achc sc"><div class="achico">📹</div><div class="achtitle">YouTube Creator</div><div class="achsub">@2in1_gamer – Gaming &amp; Tech channel</div></div>
+    <div class="achc sc"><div class="achico">📄</div><div class="achtitle">Research Paper – IJMTST 2026</div><div class="achsub">DFIG Wind Energy Control (THD: 0.30%)</div></div>
+    <div class="achc sc"><div class="achico">🤝</div><div class="achtitle">Social Initiative</div><div class="achsub">Say No to Drugs – Awareness Campaign</div></div>
+  </div>
+</section>
+
+<!-- ─── PORTFOLIO ───────────────────────────────── -->
+<section class="psec" id="portfolio">
+  <div class="sh"><h2>My <span>Portfolio</span></h2><div class="sdiv"></div></div>
+  <div class="pgrid">
+
+    <div class="pcard sc" onclick="om('m1')">
+      <div class="pthumb" style="background:linear-gradient(135deg,#1a1a2e,#16213e);">🎓</div>
+      <div class="pbody">
+        <div class="ptags"><span class="ptag">MongoDB</span><span class="ptag">Express</span><span class="ptag">React</span><span class="ptag">Node</span></div>
+        <div class="ptitle">Online Learning Platform</div>
+        <div class="pdesc">Full-stack MERN learning platform with RESTful APIs, secure user authentication, and a responsive React UI with reusable components and MVC architecture.</div>
+        <div class="pacts">
+          <a class="pbtn pri" href="https://github.com/vvraghuram/Longterm" target="_blank" onclick="event.stopPropagation()">🐙 GitHub</a>
+          <button class="pbtn" onclick="event.stopPropagation();om('m1')">Details →</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="pcard sc" onclick="om('m2')">
+      <div class="pthumb" style="background:linear-gradient(135deg,#0f3460,#533483);">⚡</div>
+      <div class="pbody">
+        <div class="ptags"><span class="ptag">Python</span><span class="ptag">IoT</span><span class="ptag">MySQL</span><span class="ptag">Embedded C</span></div>
+        <div class="ptitle">Intelligent Energy Monitoring System</div>
+        <div class="pdesc">Real-time IoT smart metering system tracking electrical consumption per appliance with relay-controlled home automation based on energy thresholds.</div>
+        <div class="pacts"><button class="pbtn pri" onclick="event.stopPropagation();om('m2')">View Details →</button></div>
+      </div>
+    </div>
+
+    <div class="pcard sc" onclick="om('m3')">
+      <div class="pthumb" style="background:linear-gradient(135deg,#1b262c,#0f4c75);">☁️</div>
+      <div class="pbody">
+        <div class="ptags"><span class="ptag">Lambda</span><span class="ptag">DynamoDB</span><span class="ptag">S3</span><span class="ptag">EC2</span></div>
+        <div class="ptitle">AWS Serverless Web Application</div>
+        <div class="pdesc">Serverless app on AWS Lambda &amp; API Gateway, reducing infrastructure overhead with DynamoDB + S3 backends delivering high availability.</div>
+        <div class="pacts"><button class="pbtn pri" onclick="event.stopPropagation();om('m3')">View Details →</button></div>
+      </div>
+    </div>
+
+    <div class="pcard sc" onclick="om('m4')">
+      <div class="pthumb" style="background:linear-gradient(135deg,#1f1c2c,#928dab);">🌞</div>
+      <div class="pbody">
+        <div class="ptags"><span class="ptag">Power Electronics</span><span class="ptag">MATLAB</span><span class="ptag">Solar PV</span></div>
+        <div class="ptitle">Advanced Solar Grid DC-DC Converter</div>
+        <div class="pdesc">Extendable multiport high step-up DC-DC converter for PV-battery hybrid systems minimizing voltage stress on switches and diodes.</div>
+        <div class="pacts"><button class="pbtn pri" onclick="event.stopPropagation();om('m4')">View Details →</button></div>
+      </div>
+    </div>
+
+    <div class="pcard sc" onclick="om('m5')">
+      <div class="pthumb" style="background:linear-gradient(135deg,#2c3e50,#4ca1af);">🏨</div>
+      <div class="pbody">
+        <div class="ptags"><span class="ptag">React.js</span><span class="ptag">JavaScript</span><span class="ptag">CSS3</span></div>
+        <div class="ptitle">Hotel Management System</div>
+        <div class="pdesc">React-based hotel management app with room booking, guest management, and billing features using clean UI and modular component architecture.</div>
+        <div class="pacts"><button class="pbtn pri" onclick="event.stopPropagation();om('m5')">View Details →</button></div>
+      </div>
+    </div>
+
+    <div class="pcard sc" onclick="om('m6')">
+      <div class="pthumb" style="background:linear-gradient(135deg,#141e30,#243b55);">🤖</div>
+      <div class="pbody">
+        <div class="ptags"><span class="ptag">React</span><span class="ptag">Claude API</span><span class="ptag">AI</span></div>
+        <div class="ptitle">ATS Resume Analyzer</div>
+        <div class="pdesc">AI-powered resume analyzer using Anthropic Claude API — scores ATS compatibility against job descriptions and gives improvement suggestions.</div>
+        <div class="pacts"><button class="pbtn pri" onclick="event.stopPropagation();om('m6')">View Details →</button></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── CONTACT ─────────────────────────────────── -->
+<section class="psec" id="contact">
+  <div class="sh"><h2>Contact <span>Me</span></h2><div class="sdiv"></div></div>
+  <div class="cgrid">
+    <div class="cfc">
+      <h3>✉️ Send Me a Message</h3>
+      <!--
+        TO ACTIVATE EMAIL SENDING:
+        1. Go to https://formspree.io → Sign up free
+        2. Click "New Form" → copy your Form ID (looks like: xpzgwqqz)
+        3. Replace YOUR_FORM_ID below with that ID
+        4. Done! Messages arrive at vraghuram104@gmail.com
+      -->
+      <form id="cform" action="https://formspree.io/f/xnjojgzk" method="POST" onsubmit="submitForm(event)">
+        <div class="frow">
+          <div class="fg"><label>Full Name *</label><input type="text" name="name" placeholder="Your full name" required/></div>
+          <div class="fg"><label>Email *</label><input type="email" name="email" placeholder="your@email.com" required/></div>
+        </div>
+        <div class="fg"><label>Phone</label><input type="tel" name="phone" placeholder="+91 XXXXX XXXXX"/></div>
+        <div class="fg"><label>Subject *</label><input type="text" name="subject" placeholder="Job Opportunity / Collaboration / Project" required/></div>
+        <div class="fg"><label>Message *</label><textarea name="message" placeholder="Tell me about the opportunity or what you'd like to discuss..." required></textarea></div>
+        <button type="submit" class="bsub">
+          <span id="bt">🚀 Send Message</span>
+          <span id="bl" style="display:none">Sending…</span>
+        </button>
+        <div id="fs" class="fstat"></div>
+      </form>
+    </div>
+    <div class="cipanel">
+      <a class="ciitem" href="/cdn-cgi/l/email-protection#8afcf8ebede2fff8ebe7bbbabecaede7ebe3e6a4e9e5e7"><div class="ciico">📧</div><div><div class="cilbl">Email</div><div class="cival"><span class="__cf_email__" data-cfemail="26505447414e5354474b17161266414b474f4a0845494b">[email&#160;protected]</span></div></div></a>
+      <a class="ciitem" href="tel:+919182838497"><div class="ciico">📞</div><div><div class="cilbl">Phone</div><div class="cival">+91 91828 38497</div></div></a>
+      <a class="ciitem" href="https://linkedin.com/in/vvraghuram" target="_blank"><div class="ciico">💼</div><div><div class="cilbl">LinkedIn</div><div class="cival">linkedin.com/in/vvraghuram</div></div></a>
+      <a class="ciitem" href="https://github.com/vvraghuram" target="_blank"><div class="ciico">🐙</div><div><div class="cilbl">GitHub</div><div class="cival">github.com/vvraghuram</div></div></a>
+      <a class="ciitem" href="https://youtube.com/@2in1_gamer" target="_blank"><div class="ciico">▶️</div><div><div class="cilbl">YouTube</div><div class="cival">@2in1_gamer</div></div></a>
+      <div class="ciitem"><div class="ciico">📍</div><div><div class="cilbl">Location</div><div class="cival">Rajahmundry, AP, India</div></div></div>
+    </div>
+  </div>
+</section>
+
+</main>
+</div>
+
+<!-- ═══ MODALS ═════════════════════════════════════ -->
+<div class="mov" id="m1" onclick="cmoo(event,'m1')"><div class="mbox">
+  <div class="mhead"><div class="mtitle">Online Learning Platform</div><button class="mcls" onclick="cm('m1')">✕</button></div>
+  <div class="mbody">
+    <div class="memi">🎓</div>
+    <div class="msectitle">Overview</div><div class="mdesc">Full-stack MERN learning platform with RESTful APIs, improving data retrieval efficiency and supporting secure concurrent user authentication across the platform.</div>
+    <div class="msectitle">Key Features</div><ul class="mfeats">
+      <li>RESTful API architecture with secure JWT-based user authentication</li>
+      <li>Responsive React.js UI with reusable components reducing page load time</li>
+      <li>MVC architecture with MongoDB for structured data persistence</li>
+      <li>Express.js server-side routing and middleware management</li>
+      <li>User enrollment, course management, and progress tracking modules</li>
+    </ul>
+    <div class="msectitle">Technologies Used</div>
+    <div class="mtechtags"><span class="mtech">MongoDB</span><span class="mtech">Express.js</span><span class="mtech">React.js</span><span class="mtech">Node.js</span><span class="mtech">REST API</span><span class="mtech">HTML5</span><span class="mtech">CSS3</span><span class="mtech">JavaScript</span></div>
+    <div class="macts"><a class="pbtn pri" href="https://github.com/vvraghuram/Longterm" target="_blank">🐙 View on GitHub</a></div>
+  </div>
+</div></div>
+
+<div class="mov" id="m2" onclick="cmoo(event,'m2')"><div class="mbox">
+  <div class="mhead"><div class="mtitle">Intelligent Energy Monitoring System</div><button class="mcls" onclick="cm('m2')">✕</button></div>
+  <div class="mbody">
+    <div class="memi">⚡</div>
+    <div class="msectitle">Overview</div><div class="mdesc">IoT-based smart metering system monitoring real-time electrical consumption per appliance, with integrated relay-controlled home automation switching appliances based on energy thresholds.</div>
+    <div class="msectitle">Key Features</div><ul class="mfeats">
+      <li>Real-time monitoring of electrical consumption per individual appliance</li>
+      <li>Relay-controlled automation — switches appliances based on energy thresholds</li>
+      <li>Live energy data stored and visualized using Python and MySQL</li>
+      <li>Reduced data latency supporting efficient power management decisions</li>
+      <li>IoT sensor integration via UART/I2C/SPI protocols on microcontroller</li>
+    </ul>
+    <div class="msectitle">Technologies Used</div>
+    <div class="mtechtags"><span class="mtech">Python</span><span class="mtech">IoT Sensors</span><span class="mtech">Embedded C</span><span class="mtech">MySQL</span><span class="mtech">Relay Module</span><span class="mtech">Microcontroller</span></div>
+  </div>
+</div></div>
+
+<div class="mov" id="m3" onclick="cmoo(event,'m3')"><div class="mbox">
+  <div class="mhead"><div class="mtitle">AWS Serverless Web Application</div><button class="mcls" onclick="cm('m3')">✕</button></div>
+  <div class="mbody">
+    <div class="memi">☁️</div>
+    <div class="msectitle">Overview</div><div class="mdesc">Serverless web application architected on AWS Lambda and API Gateway, reducing infrastructure overhead significantly and improving scalability with DynamoDB and S3 backends.</div>
+    <div class="msectitle">Key Features</div><ul class="mfeats">
+      <li>Serverless architecture using Lambda + API Gateway — zero server management</li>
+      <li>DynamoDB for real-time data storage with low-latency reads/writes</li>
+      <li>S3 for static hosting and log archiving with high availability</li>
+      <li>Scalable IoT data pipeline backend for sensor data ingestion</li>
+      <li>Cost-efficient — pay only for actual compute usage</li>
+    </ul>
+    <div class="msectitle">Technologies Used</div>
+    <div class="mtechtags"><span class="mtech">AWS Lambda</span><span class="mtech">API Gateway</span><span class="mtech">DynamoDB</span><span class="mtech">S3</span><span class="mtech">EC2</span></div>
+  </div>
+</div></div>
+
+<div class="mov" id="m4" onclick="cmoo(event,'m4')"><div class="mbox">
+  <div class="mhead"><div class="mtitle">Advanced Solar Grid DC-DC Converter</div><button class="mcls" onclick="cm('m4')">✕</button></div>
+  <div class="mbody">
+    <div class="memi">🌞</div>
+    <div class="msectitle">Overview</div><div class="mdesc">Extendable multiport high step-up DC-DC converter for photovoltaic-battery hybrid systems achieving optimized power delivery while minimizing component voltage stress.</div>
+    <div class="msectitle">Key Features</div><ul class="mfeats">
+      <li>Extendable multiport architecture for PV-battery hybrid configurations</li>
+      <li>Minimized voltage stress on switches and diodes — extended component life</li>
+      <li>Analyzed power flow control for simultaneous charging &amp; discharging</li>
+      <li>High step-up ratio suitable for grid-tie solar applications</li>
+      <li>Contributes to IJMTST 2026 published research paper</li>
+    </ul>
+    <div class="msectitle">Technologies Used</div>
+    <div class="mtechtags"><span class="mtech">Power Electronics</span><span class="mtech">DC-DC Converter</span><span class="mtech">Solar PV</span><span class="mtech">MATLAB</span><span class="mtech">Battery Systems</span></div>
+  </div>
+</div></div>
+
+<div class="mov" id="m5" onclick="cmoo(event,'m5')"><div class="mbox">
+  <div class="mhead"><div class="mtitle">Hotel Management System</div><button class="mcls" onclick="cm('m5')">✕</button></div>
+  <div class="mbody">
+    <div class="memi">🏨</div>
+    <div class="msectitle">Overview</div><div class="mdesc">React-based hotel management application with room booking, guest management, and billing features built with clean UI and modular component architecture.</div>
+    <div class="msectitle">Key Features</div><ul class="mfeats">
+      <li>Room availability management and full booking workflow</li>
+      <li>Guest check-in / check-out management dashboard</li>
+      <li>Billing and invoice generation module</li>
+      <li>Fully responsive design across all device sizes</li>
+      <li>Modular React component architecture for easy extension</li>
+    </ul>
+    <div class="msectitle">Technologies Used</div>
+    <div class="mtechtags"><span class="mtech">React.js</span><span class="mtech">JavaScript</span><span class="mtech">CSS3</span><span class="mtech">HTML5</span></div>
+  </div>
+</div></div>
+
+<div class="mov" id="m6" onclick="cmoo(event,'m6')"><div class="mbox">
+  <div class="mhead"><div class="mtitle">ATS Resume Analyzer</div><button class="mcls" onclick="cm('m6')">✕</button></div>
+  <div class="mbody">
+    <div class="memi">🤖</div>
+    <div class="msectitle">Overview</div><div class="mdesc">AI-powered resume analyzer React component using the Anthropic Claude API. Analyzes resumes against job descriptions and provides ATS compatibility scores with detailed improvement suggestions.</div>
+    <div class="msectitle">Key Features</div><ul class="mfeats">
+      <li>Paste resume + job description — get instant ATS compatibility score</li>
+      <li>Identifies missing keywords and skill gaps automatically</li>
+      <li>AI-generated suggestions to improve resume for specific roles</li>
+      <li>Clean React UI with real-time AI feedback display</li>
+      <li>Powered by Anthropic Claude API (claude-sonnet model)</li>
+    </ul>
+    <div class="msectitle">Technologies Used</div>
+    <div class="mtechtags"><span class="mtech">React.js</span><span class="mtech">Anthropic Claude API</span><span class="mtech">JavaScript</span><span class="mtech">CSS3</span></div>
+  </div>
+</div></div>
+
+<!-- ═══ JS ═══════════════════════════════════════════ -->
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // Navigation
+  function nav(id, btn) {
+    document.querySelectorAll('.psec').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nitem').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+    if (window.innerWidth <= 900) closeSB();
+    setTimeout(restagger, 60);
+  }
+
+  // Sidebar
+  function toggleSidebar() {
+    const sb = document.getElementById('sidebar');
+    const ov = document.getElementById('ov');
+    const mb = document.getElementById('mmb');
+    const open = sb.classList.toggle('open');
+    ov.classList.toggle('open', open);
+    mb.textContent = open ? '✕' : '☰';
+  }
+  function closeSB() {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('ov').classList.remove('open');
+    document.getElementById('mmb').textContent = '☰';
+  }
+
+  // Contacts panel
+  function toggleContacts() {
+    const p = document.getElementById('cpanel');
+    const t = document.getElementById('ctoggle');
+    const open = p.classList.toggle('open');
+    t.classList.toggle('open', open);
+    t.childNodes[0].textContent = open ? 'Hide Contacts ' : 'Show Contacts ';
+  }
+
+  // Modals
+  function om(id) { document.getElementById(id).classList.add('open'); document.body.style.overflow='hidden'; }
+  function cm(id) { document.getElementById(id).classList.remove('open'); document.body.style.overflow=''; }
+  function cmoo(e, id) { if (e.target === e.currentTarget) cm(id); }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') document.querySelectorAll('.mov.open').forEach(m => { m.classList.remove('open'); document.body.style.overflow=''; });
+  });
+
+  // Stagger replay
+  function restagger() {
+    document.querySelectorAll('.sc').forEach(el => { el.style.animation='none'; el.offsetHeight; el.style.animation=''; });
+  }
+
+  // Contact form
+  async function submitForm(e) {
+    e.preventDefault();
+    const form = document.getElementById('cform');
+    const fs = document.getElementById('fs');
+    const bt = document.getElementById('bt');
+    const bl = document.getElementById('bl');
+    bt.style.display='none'; bl.style.display='inline';
+    fs.className='fstat';
+
+    if (false) { // Formspree ID is set — real submissions active
+      await new Promise(r => setTimeout(r, 1100));
+      bt.style.display='inline'; bl.style.display='none';
+      fs.className='fstat ok';
+      fs.textContent='✅ Demo mode — message received! To get real emails, replace YOUR_FORM_ID in the code with your Formspree ID (free at formspree.io).';
+      form.reset(); return;
+    }
+
+    try {
+      const res = await fetch(form.action, { method:'POST', body:new FormData(form), headers:{'Accept':'application/json'} });
+      bt.style.display='inline'; bl.style.display='none';
+      if (res.ok) {
+ 
